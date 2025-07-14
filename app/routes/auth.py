@@ -142,7 +142,7 @@ Clientele Book Team
         # -----------------------------------
         # Send notification email to admin
         # -----------------------------------
-        admin_email = "clientelebookbooking@gmail.com"  # Change to your admin email
+        admin_email = "clientelebookbookings@gmail.com"  # Change to your admin email
 
         admin_msg = Message(
             subject=f"New Appointment Booked by {current_user.name}",
