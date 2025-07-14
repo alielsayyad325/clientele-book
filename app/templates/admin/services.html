@@ -1,7 +1,21 @@
 <h2>Services List</h2>
+
 <ul>
-{% for s in services %}
-    <li>{{ s.name }} - ${{ s.price }} ({{ s.duration_minutes }} minutes)</li>
-{% endfor %}
+    {% for service in services %}
+        <li>
+            <strong>{{ service.name }}</strong><br>
+            Description: {{ service.description }}<br>
+            Price: ${{ service.price }}<br>
+            Duration: {{ service.duration_minutes }} minutes
+            <br>
+            <a href="{{ url_for('admin.edit_service', service_id=service.id) }}">Edit</a>
+            |
+            <form method="POST" action="{{ url_for('admin.delete_service', service_id=service.id) }}" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        <hr>
+    {% endfor %}
 </ul>
+
 <a href="{{ url_for('admin.add_service') }}">Add Service</a>

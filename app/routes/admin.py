@@ -1,31 +1,67 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from app import db
 from app.models.service import Service
+from app import db
 
 admin_bp = Blueprint("admin", __name__)
+
+# -----------------------------
+# List Services
+# -----------------------------
 
 @admin_bp.route("/admin/services")
 def list_services():
     services = Service.query.all()
     return render_template("admin/services.html", services=services)
 
+# -----------------------------
+# Add Service
+# -----------------------------
+
 @admin_bp.route("/admin/services/add", methods=["GET", "POST"])
 def add_service():
     if request.method == "POST":
         name = request.form["name"]
         description = request.form["description"]
-        price = float(request.form["price"])
-        duration = int(request.form["duration"])
+        price = request.form["price"]
+        duration = request.form["duration"]
 
         new_service = Service(
             name=name,
             description=description,
-            price=price,
-            duration_minutes=duration
+            price=float(price),
+            duration_minutes=int(duration)
         )
         db.session.add(new_service)
         db.session.commit()
-
         return redirect(url_for("admin.list_services"))
 
     return render_template("admin/add_service.html")
+
+# -----------------------------
+# Edit Service
+# -----------------------------
+
+@admin_bp.route("/admin/services/edit/<int:service_id>", methods=["GET", "POST"])
+def edit_service(service_id):
+    service = Service.query.get_or_404(service_id)
+
+    if request.method == "POST":
+        service.name = request.form["name"]
+        service.description = request.form["description"]
+        service.price = float(request.form["price"])
+        service.duration_minutes = int(request.form["duration"])
+        db.session.commit()
+        return redirect(url_for("admin.list_services"))
+
+    return render_template("admin/edit_service.html", service=service)
+
+# -----------------------------
+# Delete Service
+# -----------------------------
+
+@admin_bp.route("/admin/services/delete/<int:service_id>", methods=["POST"])
+def delete_service(service_id):
+    service = Service.query.get_or_404(service_id)
+    db.session.delete(service)
+    db.session.commit()
+    return redirect(url_for("admin.list_services"))
