@@ -1,49 +1,51 @@
-# clientele-book
+# ✂️ Clientele Book
 
-Clientele Book
-Clientele Book is a web application designed for hairstylists to manage and grow their business. It replaces the traditional “clientele book” with a modern digital solution.
+**Clientele Book** is a modern web application for hairstylists to manage their clients, appointments, and business operations—all in one place. It brings the traditional “clientele book” into the digital era.
 
-Project Overview
-Manage client details and appointment history
+---
 
-Maintain service lists, pricing, and availability
+## 💻 Project Highlights
 
-Allow clients to book appointments online without requiring login
+- Manage client details and appointment history
+- Maintain service lists, pricing, and availability
+- Clients can book appointments online without needing an account
+- Upload and showcase before-and-after photos
+- Automated email confirmations sent to both clients and stylists
 
-Upload and manage before-and-after photos
+---
 
-Send automated email confirmations to both clients and stylists
+## ✅ Features Implemented
 
-Features Implemented
-User registration and login for admins (stylists)
+- User registration and login for stylist/admins
+- Secure password handling
+- Client registration and booking flow
+- Admin dashboard for managing services
+- Booking confirmation pages
+- Email notifications for both clients and stylists
 
-Client registration and online booking
+---
 
-Secure password management
+## ⚙️ Tech Stack
 
-Admin dashboard for managing services
+- Python · Flask · SQLAlchemy
+- Flask-Login · Flask-Mail
+- SQLite (for development)
+- HTML · Jinja Templates
 
-Booking confirmation pages
+---
 
-Email notifications on successful bookings
+## 🚀 Current Focus
 
-Tech Stack
-Python & Flask
+> Refining the booking process and implementing professional email notifications for clients and stylists.
 
-SQLAlchemy
+---
 
-Flask-Login
+## 🤝 Contributing
+If you have ideas, questions, or would like to contribute, feel free to reach out:
 
-Flask-Mail
+📧 [clientelebookbookings@gmail.com](mailto:clientelebookbookings@gmail.com)
 
-SQLite (development)
+## 👥 Contributors
 
-HTML & Jinja Templates
-
-Current Focus
-Developing the booking flow and refining email notifications for client and stylist communication.
-
-Contributors
-Ali Elsayyad
-
-Jesus
+- Ali Elsayyad
+- Jesus Vargas
