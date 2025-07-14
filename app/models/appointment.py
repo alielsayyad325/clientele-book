@@ -10,6 +10,9 @@ class Appointment(db.Model):
     notes = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    service_id = db.Column(db.Integer, db.ForeignKey("service.id"))
+
 
     def __repr__(self):
         return f"<Appointment {self.id} - {self.client_name}>"
