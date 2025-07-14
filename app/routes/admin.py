@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import login_required
 from app.models.service import Service
+from app.utils.decorators import admin_required
 from app import db
 
 admin_bp = Blueprint("admin", __name__)
@@ -9,6 +11,8 @@ admin_bp = Blueprint("admin", __name__)
 # -----------------------------
 
 @admin_bp.route("/admin/services")
+@login_required
+@admin_required
 def list_services():
     services = Service.query.all()
     return render_template("admin/services.html", services=services)
@@ -18,6 +22,8 @@ def list_services():
 # -----------------------------
 
 @admin_bp.route("/admin/services/add", methods=["GET", "POST"])
+@login_required
+@admin_required
 def add_service():
     if request.method == "POST":
         name = request.form["name"]
@@ -42,6 +48,8 @@ def add_service():
 # -----------------------------
 
 @admin_bp.route("/admin/services/edit/<int:service_id>", methods=["GET", "POST"])
+@login_required
+@admin_required
 def edit_service(service_id):
     service = Service.query.get_or_404(service_id)
 
@@ -60,6 +68,8 @@ def edit_service(service_id):
 # -----------------------------
 
 @admin_bp.route("/admin/services/delete/<int:service_id>", methods=["POST"])
+@login_required
+@admin_required
 def delete_service(service_id):
     service = Service.query.get_or_404(service_id)
     db.session.delete(service)
