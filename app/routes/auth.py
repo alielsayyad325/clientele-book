@@ -69,6 +69,20 @@ def logout():
 
 
 # -------------------------
+# Forgot Passowrd
+# -------------------------
+@auth_bp.route("/forgot-password", methods=["GET", "POST"])
+def forgot_password():
+    if request.method == "POST":
+        email = request.form.get("email")
+        # TODO: Validate email, generate token, send email with reset link
+        flash("If this email is registered, you’ll receive a password reset link shortly.", "info")
+        return redirect(url_for("auth.login"))
+    
+    return render_template("auth/forgot_password.html")
+
+
+# -------------------------
 # Dashboard Route
 # -------------------------
 @auth_bp.route("/dashboard")

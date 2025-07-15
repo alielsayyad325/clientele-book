@@ -1,16 +1,17 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
 from app.models.service import Service
+from app.models.appointment import Appointment
 from app.utils.decorators import admin_required
 from app import db
 
-admin_bp = Blueprint("admin", __name__)
+# Use a url_prefix to avoid repeating /admin in every route
+admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 
 # -----------------------------
 # List Services
 # -----------------------------
-
-@admin_bp.route("/admin/services")
+@admin_bp.route("/services")
 @login_required
 @admin_required
 def list_services():
@@ -20,8 +21,7 @@ def list_services():
 # -----------------------------
 # Add Service
 # -----------------------------
-
-@admin_bp.route("/admin/services/add", methods=["GET", "POST"])
+@admin_bp.route("/services/add", methods=["GET", "POST"])
 @login_required
 @admin_required
 def add_service():
@@ -46,8 +46,7 @@ def add_service():
 # -----------------------------
 # Edit Service
 # -----------------------------
-
-@admin_bp.route("/admin/services/edit/<int:service_id>", methods=["GET", "POST"])
+@admin_bp.route("/services/edit/<int:service_id>", methods=["GET", "POST"])
 @login_required
 @admin_required
 def edit_service(service_id):
@@ -66,8 +65,7 @@ def edit_service(service_id):
 # -----------------------------
 # Delete Service
 # -----------------------------
-
-@admin_bp.route("/admin/services/delete/<int:service_id>", methods=["POST"])
+@admin_bp.route("/services/delete/<int:service_id>", methods=["POST"])
 @login_required
 @admin_required
 def delete_service(service_id):
@@ -75,3 +73,13 @@ def delete_service(service_id):
     db.session.delete(service)
     db.session.commit()
     return redirect(url_for("admin.list_services"))
+
+# -----------------------------
+# View Appointments
+# -----------------------------
+@admin_bp.route("/appointments")
+@login_required
+@admin_required
+def view_appointments():
+    appointments = Appointment.query.order_by(Appointment.start_time).all()
+    return render_template("admin/appointments.html", appointments=appointments)
